@@ -1,78 +1,171 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19993480&assignment_repo_type=AssignmentRepo)
-# Real-Time Chat Application with Socket.io
+# Web Socket Chat Application
 
-This assignment focuses on building a real-time chat application using Socket.io, implementing bidirectional communication between clients and server.
+A real-time chat application built with MERN stack and Socket.io for Web Socket functionality.
 
-## Assignment Overview
+## Features
 
-You will build a chat application with the following features:
-1. Real-time messaging using Socket.io
-2. User authentication and presence
-3. Multiple chat rooms or private messaging
-4. Real-time notifications
-5. Advanced features like typing indicators and read receipts
+- Real-time messaging
+- User presence (join/leave notifications)
+- Typing indicators
+- Message reactions
+- User list with online status
+- Responsive design
+- Beautiful modern UI
 
 ## Project Structure
 
 ```
-socketio-chat/
-├── client/                 # React front-end
-│   ├── public/             # Static files
-│   ├── src/                # React source code
-│   │   ├── components/     # UI components
-│   │   ├── context/        # React context providers
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── pages/          # Page components
-│   │   ├── socket/         # Socket.io client setup
-│   │   └── App.jsx         # Main application component
-│   └── package.json        # Client dependencies
-├── server/                 # Node.js back-end
-│   ├── config/             # Configuration files
-│   ├── controllers/        # Socket event handlers
-│   ├── models/             # Data models
-│   ├── socket/             # Socket.io server setup
-│   ├── utils/              # Utility functions
-│   ├── server.js           # Main server file
-│   └── package.json        # Server dependencies
-└── README.md               # Project documentation
+├── client/          # React frontend
+│   ├── src/
+│   │   ├── components/  # React components
+│   │   ├── hooks/       # Custom React hooks
+│   │   ├── socket/      # Socket.io client utilities
+│   │   └── App.jsx      # Main app component
+├── server/          # Node.js backend
+│   ├── server.js    # Main server file with Socket.io
+│   └── package.json
+└── README.md
 ```
 
 ## Getting Started
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week5-Assignment.md` file
-4. Complete the tasks outlined in the assignment
+### Prerequisites
 
-## Files Included
-
-- `Week5-Assignment.md`: Detailed assignment instructions
-- Starter code for both client and server:
-  - Basic project structure
-  - Socket.io configuration templates
-  - Sample components for the chat interface
-
-## Requirements
-
-- Node.js (v18 or higher)
+- Node.js (v14 or higher)
 - npm or yarn
-- Modern web browser
-- Basic understanding of React and Express
 
-## Submission
+### Installation
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+1. **Install Backend Dependencies**
+   ```bash
+   cd server
+   npm install
+   ```
 
-1. Complete both the client and server portions of the application
-2. Implement the core chat functionality
-3. Add at least 3 advanced features
-4. Document your setup process and features in the README.md
-5. Include screenshots or GIFs of your working application
-6. Optional: Deploy your application and add the URLs to your README.md
+2. **Install Frontend Dependencies**
+   ```bash
+   cd client
+   npm install
+   ```
 
-## Resources
+### Running the Application
 
-- [Socket.io Documentation](https://socket.io/docs/v4/)
-- [React Documentation](https://react.dev/)
-- [Express.js Documentation](https://expressjs.com/)
-- [Building a Chat Application with Socket.io](https://socket.io/get-started/chat) 
+1. **Start the Backend Server**
+   ```bash
+   cd server
+   npm start
+   ```
+   The server will run on `http://localhost:5000`
+
+2. **Start the Frontend Development Server**
+   ```bash
+   cd client
+   npm run dev
+   ```
+   The frontend will run on `http://localhost:5173`
+
+3. **Open your browser**
+   Navigate to `http://localhost:5173` to use the chat application
+
+## How to Use
+
+1. **Join the Chat**
+   - Enter your username in the login screen
+   - Click "Join Chat" to enter the chat room
+
+2. **Send Messages**
+   - Type your message in the input field
+   - Press Enter or click the send button
+   - Messages appear in real-time for all connected users
+
+3. **View Users**
+   - Click the "Users" button to see all online users
+   - See who is currently typing
+
+4. **Add Reactions**
+   - Hover over any message to see reaction options
+   - Click on an emoji to add a reaction
+
+5. **Logout**
+   - Click the "Logout" button to return to the login screen
+
+## Features Explained
+
+### Real-time Messaging
+- Messages are sent instantly to all connected users
+- No page refresh required
+- Messages are stored temporarily in server memory
+
+### User Presence
+- Users are notified when someone joins or leaves
+- Online user list updates in real-time
+- Connection status indicator
+
+### Typing Indicators
+- Shows when someone is typing
+- Automatically disappears after 1 second of inactivity
+- Animated typing dots
+
+### Message Reactions
+- Add emoji reactions to any message
+- Reactions are visible to all users
+- Hover over messages to see reaction options
+
+### Responsive Design
+- Works on desktop and mobile devices
+- Adaptive layout for different screen sizes
+- Touch-friendly interface
+
+## Technical Details
+
+### Backend (Node.js + Socket.io)
+- Express server with Socket.io integration
+- CORS enabled for frontend communication
+- Real-time event handling
+- User management and message broadcasting
+
+### Frontend (React + Socket.io-client)
+- React functional components with hooks
+- Custom useChat hook for state management
+- Socket.io-client for Web Socket connection
+- Modern CSS with gradients and animations
+
+### Web Socket Events
+- `user_join`: User joins the chat
+- `send_message`: Send a message to all users
+- `typing`: Typing indicator
+- `receive_message`: Receive a message
+- `user_list`: Update user list
+- `user_joined/user_left`: User presence notifications
+- `add_reaction`: Add reaction to message
+
+## Development
+
+### Adding New Features
+1. Add new Socket.io events in `server/server.js`
+2. Handle events in the frontend `useChat` hook
+3. Create new React components as needed
+4. Update styles in `App.css`
+
+### Customization
+- Modify colors in CSS variables
+- Add new message types
+- Implement private messaging
+- Add file upload functionality
+- Integrate with a database for message persistence
+
+## Troubleshooting
+
+### Connection Issues
+- Ensure both servers are running
+- Check that ports 5000 and 5173 are available
+- Verify CORS settings in server.js
+
+### Message Not Sending
+- Check browser console for errors
+- Verify Socket.io connection status
+- Ensure username is set before sending messages
+
+## License
+
+This project is for educational purposes as part of the MERN Stack Development course. 

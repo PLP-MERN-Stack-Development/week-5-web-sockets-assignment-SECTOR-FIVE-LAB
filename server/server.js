@@ -6,6 +6,8 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 // Load environment variables
 dotenv.config();
@@ -35,6 +37,9 @@ const typingUsers = {};
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
 
+  socket.on('add_reaction', ({ messageId, reaction }) => {
+    io.emit('reaction_added', { messageId, reaction });
+  });
   // Handle user joining
   socket.on('user_join', (username) => {
     users[socket.id] = { username, id: socket.id };
@@ -76,6 +81,12 @@ io.on('connection', (socket) => {
       
       io.emit('typing_users', Object.values(typingUsers));
     }
+  });
+
+  io.on('connection', (socket) => {
+    socket.on('typing', ({ room, user }) => {
+      socket.to(room).emit('typing', { user });
+    });
   });
 
   // Handle private messages
@@ -121,6 +132,10 @@ app.get('/api/users', (req, res) => {
 // Root route
 app.get('/', (req, res) => {
   res.send('Socket.io Chat Server is running');
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  res.status(200).send({ filePath: req.file.path });
 });
 
 // Start server
